@@ -2,22 +2,33 @@ import 'package:catan/ui/tile_type.dart';
 import 'package:flutter/material.dart';
 
 const List<List<double>> points = [
-  [1.4, 1],
-  [0.5, 1.5],
-  [-0.4, 1],
-  [-0.4, 0],
-  [0.5, -0.5],
-  [1.4, 0],
-  [1.4, 1],
+  [0.9, 0.5],
+  [0, 1],
+  [-0.9, 0.5],
+  [-0.9, -0.5],
+  [0, -1],
+  [0.9, -0.5],
 ];
 
+// [1, 0.317],
+// [0.5, 0],
+// [0, 0.317],
+// [0, 0.683],
+// [0.5, 1],
+// [1, 0.683],
+
+/// tan(pi / 6) * 2
+const widthToHeightRatio = 1.1547;
+
 class HexagonTile extends StatelessWidget {
-  const HexagonTile({required this.tileType, this.width = 100, this.height = 100, Key? key}) : super(key: key);
+  HexagonTile({required this.tileType, this.width = 50, Key? key}) : super(key: key) {
+    height = widthToHeightRatio * width;
+  }
 
   final TileType tileType;
 
   final double width;
-  final double height;
+  late final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +79,8 @@ class _HexagonPainter extends CustomPainter {
                 ))
             .toList(),
         true);
+
+    print(points);
 
     canvas.drawPath(path, _paint);
   }
