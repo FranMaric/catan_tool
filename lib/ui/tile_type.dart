@@ -1,4 +1,4 @@
-enum CatanTile {
+enum TileType {
   wood,
   brick,
   stone,

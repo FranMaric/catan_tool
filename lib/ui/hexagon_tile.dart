@@ -1,3 +1,4 @@
+import 'package:catan/ui/tile_type.dart';
 import 'package:flutter/material.dart';
 
 const List<List<double>> points = [
@@ -11,20 +12,49 @@ const List<List<double>> points = [
 ];
 
 class HexagonTile extends StatelessWidget {
-  const HexagonTile({Key? key}) : super(key: key);
+  const HexagonTile({required this.tileType, this.width = 100, this.height = 100, Key? key}) : super(key: key);
+
+  final TileType tileType;
+
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: const Size(100, 100),
-      painter: HexagonPainter(),
+    return SizedBox(
+      width: width,
+      height: height,
+      child: CustomPaint(
+        painter: HexagonPainter(
+          color: colorFromType(tileType),
+        ),
+        child: Image.asset('assets/' + tileType.name + '.png'),
+      ),
     );
+  }
+
+  Color colorFromType(TileType tileType) {
+    switch (tileType) {
+      case TileType.brick:
+        return const Color.fromARGB(255, 156, 122, 113);
+      case TileType.wool:
+        return const Color.fromARGB(255, 168, 179, 111);
+      case TileType.wheat:
+        return const Color.fromARGB(255, 238, 199, 127);
+      case TileType.wood:
+        return const Color.fromARGB(255, 114, 152, 120);
+      case TileType.stone:
+        return const Color.fromARGB(255, 142, 143, 139);
+    }
   }
 }
 
 class HexagonPainter extends CustomPainter {
+  HexagonPainter({required Color color}) {
+    _paint.color = color;
+  }
+
   final Paint _paint = Paint()
-    ..color = Colors.blue
     ..style = PaintingStyle.fill
     ..strokeCap = StrokeCap.round;
 
