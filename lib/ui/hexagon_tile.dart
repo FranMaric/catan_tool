@@ -25,7 +25,7 @@ class HexagonTile extends StatelessWidget {
       width: width,
       height: height,
       child: CustomPaint(
-        painter: HexagonPainter(
+        painter: _HexagonPainter(
           color: colorFromType(tileType),
         ),
         child: Image.asset('assets/' + tileType.name + '.png'),
@@ -49,14 +49,12 @@ class HexagonTile extends StatelessWidget {
   }
 }
 
-class HexagonPainter extends CustomPainter {
-  HexagonPainter({required Color color}) {
+class _HexagonPainter extends CustomPainter {
+  _HexagonPainter({required Color color}) {
     _paint.color = color;
   }
 
-  final Paint _paint = Paint()
-    ..style = PaintingStyle.fill
-    ..strokeCap = StrokeCap.round;
+  final Paint _paint = Paint()..strokeCap = StrokeCap.round;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -75,7 +73,5 @@ class HexagonPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
