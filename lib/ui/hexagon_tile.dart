@@ -14,7 +14,7 @@ const List<List<double>> points = [
 const widthToHeightRatio = 1.1547;
 
 class HexagonTile extends StatelessWidget {
-  HexagonTile({required this.tileType, this.width = 50, Key? key}) : super(key: key) {
+  HexagonTile({required this.tileType, this.width = 100, Key? key}) : super(key: key) {
     height = widthToHeightRatio * width;
   }
 
@@ -28,11 +28,18 @@ class HexagonTile extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: CustomPaint(
-        painter: _HexagonPainter(
-          color: colorFromType(tileType),
-        ),
-        child: Image.asset('assets/' + tileType.name + '.png'),
+      child: Stack(
+        children: [
+          CustomPaint(
+            size: Size(width, height),
+            painter: _HexagonPainter(
+              color: colorFromType(tileType),
+            ),
+          ),
+          Center(
+            child: Image.asset('assets/' + tileType.name + '.png'),
+          ),
+        ],
       ),
     );
   }
@@ -72,8 +79,6 @@ class _HexagonPainter extends CustomPainter {
                 ))
             .toList(),
         true);
-
-    print(points);
 
     canvas.drawPath(path, _paint);
   }
