@@ -14,7 +14,7 @@ const List<List<double>> points = [
 const widthToHeightRatio = 1.1547;
 
 class HexagonTile extends StatelessWidget {
-  HexagonTile({required this.tileType, this.width = 100, Key? key}) : super(key: key) {
+  HexagonTile({required this.tileType, required this.width, Key? key}) : super(key: key) {
     height = widthToHeightRatio * width;
   }
 
@@ -25,6 +25,10 @@ class HexagonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: fix image sizing tile width is too small
+    // final imageWidth = width < 88 ? width : width * 0.7;
+    // final imageHeight = width < 88 ? width : width * 0.7;
+
     return SizedBox(
       width: width,
       height: height,
@@ -37,7 +41,9 @@ class HexagonTile extends StatelessWidget {
             ),
           ),
           Center(
-            child: Image.asset('assets/' + tileType.name + '.png'),
+            child: Image.asset(
+              'assets/' + tileType.name + '.png',
+            ),
           ),
         ],
       ),
