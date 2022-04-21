@@ -4,4 +4,6 @@ enum TileType {
   stone,
   wool,
   wheat,
+//TODO: add desert
+//  desert,
 }

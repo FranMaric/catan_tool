@@ -4,6 +4,8 @@ import 'package:catan/ui/hexagon_tile.dart';
 import 'package:catan/ui/tile_type.dart';
 import 'package:flutter/material.dart';
 
+import 'interactable_hexagon_tile.dart';
+
 const double tileWidth = 88;
 
 class HexGrid extends StatelessWidget {
@@ -72,7 +74,7 @@ class HexGrid extends StatelessWidget {
           child: Row(
             children: [
               HexagonTile(width: tileWidth, tileType: tiles.elementAt(16)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(17)),
+              InteractableHexagonTile(width: tileWidth, initialTileType: tiles.elementAt(17)),
               HexagonTile(width: tileWidth, tileType: tiles.elementAt(18)),
             ],
           ),
