@@ -2,20 +2,13 @@ import 'package:catan/ui/tile_type.dart';
 import 'package:flutter/material.dart';
 
 const List<List<double>> points = [
-  [0.9, 0.5],
-  [0, 1],
-  [-0.9, 0.5],
-  [-0.9, -0.5],
-  [0, -1],
-  [0.9, -0.5],
+  [1, 0.25],
+  [0.5, 0],
+  [0, 0.25],
+  [0, 0.75],
+  [0.5, 1],
+  [1, 0.75],
 ];
-
-// [1, 0.317],
-// [0.5, 0],
-// [0, 0.317],
-// [0, 0.683],
-// [0.5, 1],
-// [1, 0.683],
 
 /// tan(pi / 6) * 2
 const widthToHeightRatio = 1.1547;
