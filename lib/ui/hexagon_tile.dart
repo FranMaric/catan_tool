@@ -25,10 +25,6 @@ class HexagonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: fix image sizing tile width is too small
-    // final imageWidth = width < 88 ? width : width * 0.7;
-    // final imageHeight = width < 88 ? width : width * 0.7;
-
     return SizedBox(
       width: width,
       height: height,
@@ -43,6 +39,7 @@ class HexagonTile extends StatelessWidget {
           Center(
             child: Image.asset(
               'assets/' + tileType.name + '.png',
+              height: height * 0.5,
             ),
           ),
         ],
