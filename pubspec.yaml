@@ -1,5 +1,5 @@
 name: catan
-description: Tool that helps you to decide placement of first villages.
+description: Tool that helps you to decide placement of first villages in Catan.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
