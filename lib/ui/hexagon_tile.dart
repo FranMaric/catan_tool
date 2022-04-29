@@ -14,11 +14,11 @@ const List<List<double>> points = [
 const widthToHeightRatio = 1.1547;
 
 class HexagonTile extends StatelessWidget {
-  HexagonTile({required this.tileType, required this.width, Key? key}) : super(key: key) {
+  HexagonTile({this.tileType, required this.width, Key? key}) : super(key: key) {
     height = widthToHeightRatio * width;
   }
 
-  final TileType tileType;
+  final TileType? tileType;
 
   final double width;
   late final double height;
@@ -37,17 +37,25 @@ class HexagonTile extends StatelessWidget {
             ),
           ),
           Center(
-            child: Image.asset(
-              'assets/' + tileType.name + '.png',
-              height: height * 0.5,
-            ),
+            child: tileType != null
+                ? Image.asset(
+                    'assets/' + tileType!.name + '.png',
+                    height: height * 0.5,
+                  )
+                : Text(
+                    '?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: width * 0.5,
+                    ),
+                  ),
           ),
         ],
       ),
     );
   }
 
-  Color colorFromType(TileType tileType) {
+  Color colorFromType(TileType? tileType) {
     switch (tileType) {
       case TileType.brick:
         return const Color.fromARGB(255, 156, 122, 113);
@@ -58,6 +66,8 @@ class HexagonTile extends StatelessWidget {
       case TileType.wood:
         return const Color.fromARGB(255, 114, 152, 120);
       case TileType.stone:
+        return const Color.fromARGB(255, 142, 143, 139);
+      case null:
         return const Color.fromARGB(255, 142, 143, 139);
     }
   }

@@ -1,85 +1,127 @@
 import 'dart:math';
 
-import 'package:catan/ui/hexagon_tile.dart';
-import 'package:catan/ui/tile_type.dart';
 import 'package:flutter/material.dart';
-
-import 'interactable_hexagon_tile.dart';
-
-const double tileWidth = 88;
+import 'package:catan/ui/hexagon_tile.dart';
+import 'interactive_hexagon_tile.dart';
 
 class HexGrid extends StatelessWidget {
   const HexGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Random random = Random();
+    int? currentlyOpenedMenu;
 
-    List<TileType> tiles =
-        List.generate(19, (index) => TileType.values.elementAt(random.nextInt(TileType.values.length)));
+    List<InteractiveHexagonTileController> controllers = List.generate(
+      30,
+      (index) => InteractiveHexagonTileController(
+        initialTileType: null,
+        onTileChanged: (tileType) {},
+        onMenuOpened: () {
+          if (currentlyOpenedMenu == null) {
+            currentlyOpenedMenu = index;
+            return true;
+          }
+          return false;
+        },
+        onMenuClosed: () => currentlyOpenedMenu = null,
+      ),
+    );
 
-    return Stack(
-      children: [
-        Positioned(
-          top: 0,
-          left: tileWidth,
-          child: Row(
-            children: [
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(0)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(1)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(2)),
-            ],
-          ),
+    final tileWidth = MediaQuery.of(context).size.width > 700 ? 700 / 6 : (MediaQuery.of(context).size.width - 20) / 6;
+
+    return InteractiveViewer(
+      child: Container(
+        color: Colors.blue,
+        alignment: Alignment.center,
+        child: Stack(
+          children: [
+            Positioned(
+              left: tileWidth * 3 / 2,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(0)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(1)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(2)),
+                ],
+              ),
+            ),
+            Positioned(
+              left: tileWidth,
+              top: tileWidth * widthToHeightRatio * 0.75,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(3)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(4)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(5)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(6)),
+                ],
+              ),
+            ),
+            Positioned(
+              left: tileWidth / 2,
+              top: tileWidth * widthToHeightRatio * 0.75 * 2,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(7)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(8)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(9)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(10)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(11)),
+                ],
+              ),
+            ),
+            Positioned(
+              top: tileWidth * widthToHeightRatio * 0.75 * 3,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(12)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(13)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(14)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(15)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(16)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(17)),
+                ],
+              ),
+            ),
+            Positioned(
+              left: tileWidth / 2,
+              top: tileWidth * widthToHeightRatio * 0.75 * 4,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(18)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(19)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(20)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(21)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(22)),
+                ],
+              ),
+            ),
+            Positioned(
+              left: tileWidth,
+              top: tileWidth * widthToHeightRatio * 0.75 * 5,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(23)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(24)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(25)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(26)),
+                ],
+              ),
+            ),
+            Positioned(
+              left: tileWidth * 3 / 2,
+              top: tileWidth * widthToHeightRatio * 0.75 * 6,
+              child: Row(
+                children: [
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(27)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(28)),
+                  InteractiveHexagonTile(width: tileWidth, controller: controllers.elementAt(29)),
+                ],
+              ),
+            ),
+          ],
         ),
-        Positioned(
-          top: tileWidth * widthToHeightRatio * 0.75,
-          left: tileWidth / 2,
-          child: Row(
-            children: [
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(3)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(4)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(5)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(6)),
-            ],
-          ),
-        ),
-        Positioned(
-          top: tileWidth * widthToHeightRatio * 0.75 * 2,
-          left: 0,
-          child: Row(
-            children: [
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(7)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(8)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(9)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(10)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(11)),
-            ],
-          ),
-        ),
-        Positioned(
-          top: tileWidth * widthToHeightRatio * 0.75 * 3,
-          left: tileWidth / 2,
-          child: Row(
-            children: [
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(12)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(13)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(14)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(15)),
-            ],
-          ),
-        ),
-        Positioned(
-          top: tileWidth * widthToHeightRatio * 0.75 * 4,
-          left: tileWidth,
-          child: Row(
-            children: [
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(16)),
-              InteractableHexagonTile(width: tileWidth, initialTileType: tiles.elementAt(17)),
-              HexagonTile(width: tileWidth, tileType: tiles.elementAt(18)),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
